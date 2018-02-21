@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/parseTetraFile.dir/main.cpp.o"
+  "CMakeFiles/parseTetraFile.dir/Object.cpp.o"
   "../../../Projects/parseTetrahedralFile/parseTetraFile_debug.pdb"
   "../../../Projects/parseTetrahedralFile/parseTetraFile_debug"
 )

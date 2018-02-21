@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp" "/home/linghan/CIS563FEMSimulation/cmake-build-debug/Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/Object.cpp.o"
   "/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/main.cpp" "/home/linghan/CIS563FEMSimulation/cmake-build-debug/Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

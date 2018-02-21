@@ -68,6 +68,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp">
+			<Option target="partio"/>
+		</Unit>
+		<Unit filename="/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.h">
+			<Option target="partio"/>
+		</Unit>
 		<Unit filename="/home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-src/src/lib/core/Particle.cpp">
 			<Option target="partio"/>
 		</Unit>

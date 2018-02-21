@@ -85,8 +85,18 @@
   "file": "/home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-src/src/lib/core/ParticleSimpleInterleave.cpp"
 },
 {
+  "directory": "/home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-build/src/lib",
+  "command": "/usr/bin/c++  -DCISPBA_PLUGIN_DIR=\\\"/home/linghan/CIS563FEMSimulation/cmake-build-debug/Plugins\\\" -I/home/linghan/CIS563FEMSimulation/src/lib  -fPIC -g -DEIGEN_INITIALIZE_MATRICES_BY_NAN  -Og   -Wextra -Wno-unused-parameter -std=gnu++14 -o CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o -c /home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp",
+  "file": "/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp"
+},
+{
   "directory": "/home/linghan/CIS563FEMSimulation/cmake-build-debug/Projects/parseTetrahedralFile",
   "command": "/usr/bin/c++  -DCISPBA_PLUGIN_DIR=\\\"/home/linghan/CIS563FEMSimulation/cmake-build-debug/Plugins\\\" -isystem /usr/include/eigen3   -fPIC -Wall -Werror=all -Wextra -Wno-unused-parameter -Wcast-align -Wformat=2 -Winit-self -Wmissing-include-dirs -Woverloaded-virtual -Wredundant-decls -march=native -fno-math-errno -g -DEIGEN_INITIALIZE_MATRICES_BY_NAN  -Og   -std=gnu++14 -o CMakeFiles/parseTetraFile.dir/main.cpp.o -c /home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/main.cpp",
   "file": "/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/main.cpp"
+},
+{
+  "directory": "/home/linghan/CIS563FEMSimulation/cmake-build-debug/Projects/parseTetrahedralFile",
+  "command": "/usr/bin/c++  -DCISPBA_PLUGIN_DIR=\\\"/home/linghan/CIS563FEMSimulation/cmake-build-debug/Plugins\\\" -isystem /usr/include/eigen3   -fPIC -Wall -Werror=all -Wextra -Wno-unused-parameter -Wcast-align -Wformat=2 -Winit-self -Wmissing-include-dirs -Woverloaded-virtual -Wredundant-decls -march=native -fno-math-errno -g -DEIGEN_INITIALIZE_MATRICES_BY_NAN  -Og   -std=gnu++14 -o CMakeFiles/parseTetraFile.dir/Object.cpp.o -c /home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp",
+  "file": "/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp"
 }
 ]

@@ -468,6 +468,30 @@ partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o.provi
 partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o.provides.build: partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o
 
 
+partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o: partio-build/src/lib/CMakeFiles/partio.dir/flags.make
+partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o: ../Projects/parseTetrahedralFile/Object.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linghan/CIS563FEMSimulation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o"
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-build/src/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o -c /home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp
+
+partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.i"
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-build/src/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp > CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.i
+
+partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.s"
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-build/src/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp -o CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.s
+
+partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.requires:
+
+.PHONY : partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.requires
+
+partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.provides: partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.requires
+	$(MAKE) -f partio-build/src/lib/CMakeFiles/partio.dir/build.make partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.provides.build
+.PHONY : partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.provides
+
+partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.provides.build: partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o
+
+
 # Object files for target partio
 partio_OBJECTS = \
 "CMakeFiles/partio.dir/io/BGEO.o" \
@@ -486,7 +510,8 @@ partio_OBJECTS = \
 "CMakeFiles/partio.dir/core/ParticleCaching.o" \
 "CMakeFiles/partio.dir/core/ParticleHeaders.o" \
 "CMakeFiles/partio.dir/core/ParticleSimple.o" \
-"CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o"
+"CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o" \
+"CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o"
 
 # External object files for target partio
 partio_EXTERNAL_OBJECTS =
@@ -508,9 +533,10 @@ partio-build/lib/libpartio.a: partio-build/src/lib/CMakeFiles/partio.dir/core/Pa
 partio-build/lib/libpartio.a: partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleHeaders.o
 partio-build/lib/libpartio.a: partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleSimple.o
 partio-build/lib/libpartio.a: partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o
+partio-build/lib/libpartio.a: partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o
 partio-build/lib/libpartio.a: partio-build/src/lib/CMakeFiles/partio.dir/build.make
 partio-build/lib/libpartio.a: partio-build/src/lib/CMakeFiles/partio.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linghan/CIS563FEMSimulation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX static library ../../lib/libpartio.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linghan/CIS563FEMSimulation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX static library ../../lib/libpartio.a"
 	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-build/src/lib && $(CMAKE_COMMAND) -P CMakeFiles/partio.dir/cmake_clean_target.cmake
 	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-build/src/lib && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/partio.dir/link.txt --verbose=$(VERBOSE)
 
@@ -536,6 +562,7 @@ partio-build/src/lib/CMakeFiles/partio.dir/requires: partio-build/src/lib/CMakeF
 partio-build/src/lib/CMakeFiles/partio.dir/requires: partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleHeaders.o.requires
 partio-build/src/lib/CMakeFiles/partio.dir/requires: partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleSimple.o.requires
 partio-build/src/lib/CMakeFiles/partio.dir/requires: partio-build/src/lib/CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o.requires
+partio-build/src/lib/CMakeFiles/partio.dir/requires: partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o.requires
 
 .PHONY : partio-build/src/lib/CMakeFiles/partio.dir/requires
 

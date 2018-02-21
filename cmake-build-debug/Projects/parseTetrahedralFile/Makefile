@@ -182,6 +182,33 @@ parseTetraFile/fast:
 	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/build.make Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/build
 .PHONY : parseTetraFile/fast
 
+Object.o: Object.cpp.o
+
+.PHONY : Object.o
+
+# target to build an object file
+Object.cpp.o:
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/build.make Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/Object.cpp.o
+.PHONY : Object.cpp.o
+
+Object.i: Object.cpp.i
+
+.PHONY : Object.i
+
+# target to preprocess a source file
+Object.cpp.i:
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/build.make Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/Object.cpp.i
+.PHONY : Object.cpp.i
+
+Object.s: Object.cpp.s
+
+.PHONY : Object.s
+
+# target to generate assembly for a file
+Object.cpp.s:
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/build.make Projects/parseTetrahedralFile/CMakeFiles/parseTetraFile.dir/Object.cpp.s
+.PHONY : Object.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -223,6 +250,9 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... parseTetraFile"
+	@echo "... Object.o"
+	@echo "... Object.i"
+	@echo "... Object.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

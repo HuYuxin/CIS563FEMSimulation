@@ -11,8 +11,8 @@
 [ 55%] No test step for 'partio-download'
 [ 66%] Completed 'partio-download'
 [100%] Built target partio-download
-CMake Error at Projects/parseTetrahedralFile/CMakeLists.txt:3 (add_library):
-  add_library INTERFACE library requires no source arguments.
+CMake Error at Projects/parseTetrahedralFile/CMakeLists.txt:4 (add_library):
+  add_library called with incorrect number of arguments
 
 
 -- Configuring incomplete, errors occurred!

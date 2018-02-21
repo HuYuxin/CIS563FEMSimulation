@@ -16,6 +16,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/partio.dir/core/ParticleHeaders.o"
   "CMakeFiles/partio.dir/core/ParticleSimple.o"
   "CMakeFiles/partio.dir/core/ParticleSimpleInterleave.o"
+  "CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o"
   "../../lib/libpartio.pdb"
   "../../lib/libpartio.a"
 )

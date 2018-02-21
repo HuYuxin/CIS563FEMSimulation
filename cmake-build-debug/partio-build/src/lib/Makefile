@@ -186,6 +186,21 @@ partio/fast:
 .PHONY : partio/fast
 
 # target to build an object file
+__/__/__/__/Projects/parseTetrahedralFile/Object.o:
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f partio-build/src/lib/CMakeFiles/partio.dir/build.make partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.o
+.PHONY : __/__/__/__/Projects/parseTetrahedralFile/Object.o
+
+# target to preprocess a source file
+__/__/__/__/Projects/parseTetrahedralFile/Object.i:
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f partio-build/src/lib/CMakeFiles/partio.dir/build.make partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.i
+.PHONY : __/__/__/__/Projects/parseTetrahedralFile/Object.i
+
+# target to generate assembly for a file
+__/__/__/__/Projects/parseTetrahedralFile/Object.s:
+	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f partio-build/src/lib/CMakeFiles/partio.dir/build.make partio-build/src/lib/CMakeFiles/partio.dir/__/__/__/__/Projects/parseTetrahedralFile/Object.s
+.PHONY : __/__/__/__/Projects/parseTetrahedralFile/Object.s
+
+# target to build an object file
 core/Particle.o:
 	cd /home/linghan/CIS563FEMSimulation/cmake-build-debug && $(MAKE) -f partio-build/src/lib/CMakeFiles/partio.dir/build.make partio-build/src/lib/CMakeFiles/partio.dir/core/Particle.o
 .PHONY : core/Particle.o
@@ -454,6 +469,9 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... partio"
+	@echo "... __/__/__/__/Projects/parseTetrahedralFile/Object.o"
+	@echo "... __/__/__/__/Projects/parseTetrahedralFile/Object.i"
+	@echo "... __/__/__/__/Projects/parseTetrahedralFile/Object.s"
 	@echo "... core/Particle.o"
 	@echo "... core/Particle.i"
 	@echo "... core/Particle.s"

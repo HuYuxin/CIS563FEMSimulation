@@ -188,6 +188,14 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.cpp">
+			<Option target="partio"/>
+			<Option target="parseTetraFile"/>
+		</Unit>
+		<Unit filename="/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/Object.h">
+			<Option target="partio"/>
+			<Option target="parseTetraFile"/>
+		</Unit>
 		<Unit filename="/home/linghan/CIS563FEMSimulation/Projects/parseTetrahedralFile/main.cpp">
 			<Option target="parseTetraFile"/>
 		</Unit>
