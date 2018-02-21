@@ -1,6 +1,6 @@
 # Find eigen in system directory and treat it as an interface library
 find_package(Eigen3 REQUIRED)
-add_library(eigen INTERFACE IMPORTED)
+add_library(eigen INTERFACE IMPORTED Cube.cpp Cube.h)
 
 #Generate the local Makefile
 if(CREATE_LOCAL_MAKEFILES)

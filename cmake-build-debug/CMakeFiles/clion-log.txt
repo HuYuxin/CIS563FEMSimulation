@@ -1,0 +1,19 @@
+/home/linghan/clion-2017.3.3/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/linghan/CIS563FEMSimulation
+-- Debug Build
+-- Downloading/updating partio
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/linghan/CIS563FEMSimulation/cmake-build-debug/partio-download
+[ 11%] Skipping update step for 'partio-download'
+[ 22%] No configure step for 'partio-download'
+[ 33%] No build step for 'partio-download'
+[ 44%] No install step for 'partio-download'
+[ 55%] No test step for 'partio-download'
+[ 66%] Completed 'partio-download'
+[100%] Built target partio-download
+CMake Error at Projects/parseTetrahedralFile/CMakeLists.txt:3 (add_library):
+  add_library INTERFACE library requires no source arguments.
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/linghan/CIS563FEMSimulation/cmake-build-debug/CMakeFiles/CMakeOutput.log".

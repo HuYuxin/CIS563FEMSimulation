@@ -7,11 +7,11 @@
 SHELL := /bin/bash
 RM    := rm -rf
 MKDIR := mkdir -p
-BUILDROOT := /home/yuxinhu/Downloads/CIS563/Project1/Project1Code/Build
+BUILDROOT := /home/linghan/CIS563FEMSimulation/Build
 BUILDDEFAULT := Release
 RELATIVEPATH := Projects/parseTetrahedralFile
 BUILDDIR = $(BUILDROOT)/$(BUILDDEFAULT)/$(RELATIVEPATH)
-ROOTDIR := /home/yuxinhu/Downloads/CIS563/Project1/Project1Code
+ROOTDIR := /home/linghan/CIS563FEMSimulation
 BUILDTYPES := Release MinSizeRel Debug Coverage RelWithDebInfo Quick
 OTHERGOALS := $(filter-out distclean $(BUILDTYPES),$(MAKECMDGOALS))
 
