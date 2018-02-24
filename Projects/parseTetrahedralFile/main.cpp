@@ -11,6 +11,8 @@
 #include <iostream>
 #include <eigen3/Eigen/src/Core/Matrix.h>
 
+#include "Euler.h"
+
 using Eigen::MatrixXd;
 
 
@@ -158,10 +160,6 @@ void evaluateForce(std::vector<tetrahedral>& tetrahedrals, std::vector<particle>
     //TODO:evaluate force on each tetrahedral
 }
 
-void updateParticles(std::vector<particle>& particles, float simulationTimeStep){
-    //TODO: update particles position and velocity
-}
-
 void writeBgeoFile(std::vector<particle>& particles, std::string fileName){
    //TODO: write the particle position and velocity in bgeo file
 }
@@ -200,7 +198,7 @@ int main(int argc, char* argv[]){
 
 
             //*************TODO: update particle velocity and position*********//
-            updateParticles(particles, simulationTimeStep);
+            updateParticlesFE(particles, simulationTimeStep);
 
 
             //*************TODO: boundary and collision checking************//
