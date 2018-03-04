@@ -4,3 +4,4 @@ if(CREATE_LOCAL_MAKEFILES)
 endif()
 
 add_subdirectory(parseTetrahedralFile)
+add_subdirectory(generateTetGenFile)
