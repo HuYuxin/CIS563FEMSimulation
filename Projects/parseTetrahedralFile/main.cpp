@@ -21,7 +21,8 @@ using Eigen::MatrixXd;
 // TODO: adjust this number to compare, (the smaller, the softer, if larget, cube will collapse)
 #define CUBE_DENSITY 2.0
 
-
+//Added by Yuxin for force model comparason
+enum ForceModel { LINEAR, SVKIRCHHOFF, COROTATED, NEOHOOKEAN };
 
 class particle{
 public:
@@ -121,22 +122,6 @@ bool parseFile(std::string fileName, std::vector<particle>& particles, std::vect
             particle& k = particles[Ti.pIndex[2]];
             particle& l = particles[Ti.pIndex[3]];
             Eigen::Matrix<float,3,3> Dm;
-
-            //Eigen::MatrixXd Dm(3, 3);
-            //Dm = Eigen::MatrixXd::Zero(3, 3);
-//         Dm << i.posx - l.posx, j.posx - l.posx, k.posx - l.posx,
-//              i.posy - l.posy, j.posy - l.posy, k.posy - l.posy,
-//              i.posz - l.posz, j.posz - l.posz, k.posz - l.posz;
-
-//            Dm(0, 0) = i.posx - l.posx;
-//            Dm(0, 1) = i.posy - l.posy;
-//            Dm(0, 2) = i.posz - l.posz;
-//            Dm(1, 0) = j.posx - l.posx;
-//            Dm(1, 1) = j.posy - l.posy;
-//            Dm(1, 2) = j.posz - l.posz;
-//            Dm(2, 0) = k.posx - l.posx;
-//            Dm(2, 1) = k.posy - l.posy;
-//            Dm(2, 2) = k.posz - l.posz;
 
             Dm(0, 0) = i.posx - l.posx;
             Dm(1, 0) = i.posy - l.posy;
@@ -348,7 +333,7 @@ Eigen::Matrix<float,3,3> pFunction(Eigen::Matrix<float,3,3> F)
 
 
 
-void evaluateForce(std::vector<tetrahedral>& tetrahedrals, std::vector<particle>& particles){
+void evaluateForce(std::vector<tetrahedral>& tetrahedrals, std::vector<particle>& particles, ForceModel forceModel){
     //TODO:evaluate force on each tetrahedral
 
     //First need to set all F to be zero or only gravity;
@@ -380,11 +365,86 @@ void evaluateForce(std::vector<tetrahedral>& tetrahedrals, std::vector<particle>
 
 
         Eigen::Matrix<float,3,3> F = Ds * tetrahedrals[index].DmInverse;
-        //Eigen::Matrix<float,3,3> P = pFunction(F);
+        float PoissonRatio = 0.3;
+        float YoungModulus = 5000;
 
-//        std::cout << F << std::endl;
+        float miu = YoungModulus / (2.0 * (1.0 + PoissonRatio));
+        float lamda = YoungModulus * PoissonRatio / ((1.0 + PoissonRatio) * (1.0 - 2.0 * PoissonRatio));
+        //Added by Yuxin: compare different force models
+        Eigen::Matrix<float,3,3> P;
+        Eigen::Matrix<float, 3, 3> identityMatrix = Eigen::Matrix<float, 3, 3>::Identity();
+        P.setZero();
+        switch(forceModel) {
+            //*******************Linear Approximation**********************//
+            case LINEAR: {
+                P = miu * (F + F.transpose() - 2 * identityMatrix) +
+                    lamda * (F - identityMatrix).trace() * identityMatrix;
+                break;
+            }
+            case SVKIRCHHOFF: {
+                //TODO: Add St.Venant-Kirchhoff Model
+                Eigen::Matrix<float, 3, 3> greenStrainTensor = 0.5*(F.transpose()*F - identityMatrix);
+                P = F*(2*miu*greenStrainTensor + lamda*greenStrainTensor.trace()*identityMatrix);
+                break;
+            }
+                //*******************Corotated Linear Elasticity Model********************//
+            case COROTATED: {
+                Eigen::JacobiSVD<Eigen::Matrix<float, 3, 3>> svd(F, Eigen::ComputeFullU | Eigen::ComputeFullV);
+                Eigen::Matrix<float, 3, 3> U = svd.matrixU();
+                Eigen::Matrix<float, 3, 3> V = svd.matrixV();
 
-        Eigen::JacobiSVD<Eigen::Matrix<float,3,3>> svd(F, Eigen::ComputeFullU | Eigen::ComputeFullV);
+                // flip last column if det(U) < 0.0
+                if (U.determinant() < 0.0) {
+                    U(0, 2) = -U(0, 2);
+                    U(1, 2) = -U(1, 2);
+                    U(2, 2) = -U(2, 2);
+                }
+
+                // flip last column if det(V) < 0.0
+                if (V.determinant() < 0.0) {
+                    V(0, 2) = -V(0, 2);
+                    V(1, 2) = -V(1, 2);
+                    V(2, 2) = -V(2, 2);
+                }
+
+                Eigen::Matrix<float, 3, 3> R = U * V.transpose();
+
+                float J = F.determinant();
+
+                if (std::isnan(J)) {
+                    std::cout << "J is nan" << std::endl;
+                }
+
+                Eigen::Matrix<float, 3, 3> JFInvTrans;
+                JFInvTrans(0, 0) = F(1, 1) * F(2, 2) - F(1, 2) * F(2, 1);
+                //JFInvTrans(0, 1) = -(F(1,0) * F(1,2) - F(2, 0) * F(2, 2));
+                JFInvTrans(0, 1) = F(1, 2) * F(2, 0) - F(1, 0) * F(2, 2);
+                JFInvTrans(0, 2) = F(1, 0) * F(2, 1) - F(1, 1) * F(2, 0);
+
+                JFInvTrans(1, 0) = -(F(0, 1) * F(2, 2) - F(0, 2) * F(2, 1));
+                JFInvTrans(1, 1) = F(0, 0) * F(2, 2) - F(0, 2) * F(2, 0);
+                JFInvTrans(1, 2) = -(F(0, 0) * F(2, 1) - F(0, 1) * F(2, 0));
+
+                JFInvTrans(2, 0) = F(0, 1) * F(1, 2) - F(0, 2) * F(1, 1);
+                JFInvTrans(2, 1) = -(F(0, 0) * F(1, 2) - F(0, 2) * F(1, 0));
+                JFInvTrans(2, 2) = F(0, 0) * F(1, 1) - F(0, 1) * F(1, 0);
+
+                P = 2 * miu * (F - R) + lamda * (J - 1.0) * JFInvTrans;
+                break;
+            }
+            case NEOHOOKEAN: {
+
+                //TODO: Add Neohookean Force Model
+                break;
+            }
+        }
+
+        //Eigen::Matrix<float,3,3> identityMatrix = Eigen::Matrix<float,3,3>::Identity();
+        //Eigen::Matrix<float,3,3> P = miu*(F + F.transpose()-2*identityMatrix) + lamda*(F-identityMatrix).trace()*identityMatrix;
+
+        //*******************Corotated Linear Elasticity Model********************//
+
+        /*Eigen::JacobiSVD<Eigen::Matrix<float,3,3>> svd(F, Eigen::ComputeFullU | Eigen::ComputeFullV);
         Eigen::Matrix<float,3,3> U = svd.matrixU();
         Eigen::Matrix<float,3,3> V = svd.matrixV();
 
@@ -404,16 +464,7 @@ void evaluateForce(std::vector<tetrahedral>& tetrahedrals, std::vector<particle>
 
         Eigen::Matrix<float,3,3> R = U * V.transpose();
 
-        float PoissonRatio = 0.3;
-        float YoungModulus = 5000;
 
-        float miu = YoungModulus / (2.0 * (1.0 + PoissonRatio));
-        float lamda = YoungModulus * PoissonRatio / ((1.0 + PoissonRatio) * (1.0 - 2.0 * PoissonRatio));
-
-
-//        Eigen::Matrix3f A;
-//        A << 1, 2, 1, 2, 1, 0, -1, 1, 2;
-//        std::cout << A.determinant() << std::endl;
 
 
         float J = F.determinant();
@@ -436,9 +487,8 @@ void evaluateForce(std::vector<tetrahedral>& tetrahedrals, std::vector<particle>
         JFInvTrans(2, 1) = -(F(0,0) * F(1,2) - F(0, 2) * F(1, 0));
         JFInvTrans(2, 2) = F(0, 0) * F(1, 1) - F(0, 1) * F(1, 0);
 
-
-        //Eigen::Matrix<float,3,3> P = miu * (F - R) + lamda * (J - 1.0) * J * F.inverse().transpose();
-        Eigen::Matrix<float,3,3> P = 2 * miu * (F - R) + lamda * (J - 1.0) * JFInvTrans;
+        Eigen::Matrix<float,3,3> P = 2 * miu * (F - R) + lamda * (J - 1.0) * JFInvTrans;*/
+        //*******************Corotated Linear Elasticity Model********************//
 
         Eigen::Matrix<float,3,3> H = -tetrahedrals[index].volume * P * tetrahedrals[index].DmInverse.transpose();
 
@@ -561,10 +611,22 @@ int main(int argc, char* argv[]){
     std::vector<tetrahedral> tetrahedrals;
     std::vector<std::tuple<int, int, int>> faces;
 
+    //Added by Yuxin for force model comparason
+    std::vector<particle> particleLinearForce;
+    std::vector<particle> particleSVKForce;
+
     //Parse the result .vtk file generated by tetGen program
     if(!parseFile("cubeTestHighDetail.1.vtk", particles, edges, tetrahedrals)){
         std::cout<<"file parse error!! check the vtk file"<<std::endl;
         return 0;
+    }
+
+    //Translate particles along x for 16 units, this may only applies to cube simulations
+    for(unsigned int i = 0; i<particles.size(); i++){
+        particleLinearForce.push_back(particle(particles[i].posx+16.0, particles[i].posy, particles[i].posz));
+        particleLinearForce[i].mass = particles[i].mass;
+        particleSVKForce.push_back(particle(particles[i].posx+32.0, particles[i].posy, particles[i].posz));
+        particleSVKForce[i].mass = particles[i].mass;
     }
 
     if(!parseFaceFile("cubeTestHighDetail.1.face", faces)){
@@ -588,7 +650,7 @@ int main(int argc, char* argv[]){
     //Simulate 24 frames per second, let's run 10 seconds, so 240 frames in total.
     //For each frame, we take 10 timeStep, total of 2400 timeStep
 
-    int simulationTime = 3; //30; //Seconds
+    int simulationTime = 10; //30; //Seconds
     int framesPerSecond = 24;
     int timeStepCountPerFrame = 60;
     float simulationTimeStep = (1.0 / (float)framesPerSecond) / (float)timeStepCountPerFrame;
@@ -603,13 +665,17 @@ int main(int argc, char* argv[]){
             for(int k = 0; k < timeStepCountPerFrame; k++)
             {
                 //*************TODO: eveluate force on each tetrahedrl************//
-                evaluateForce(tetrahedrals, particles);
+                evaluateForce(tetrahedrals, particles, COROTATED);
+                evaluateForce(tetrahedrals, particleLinearForce, LINEAR);
+                evaluateForce(tetrahedrals, particleSVKForce,SVKIRCHHOFF);
 
                 //Added by Yuxin for Debug
                 //printParticlePosition(particles, "before update");
 
                 //*************TODO: update particle velocity and position*********//
                 updateParticles(particles, simulationTimeStep);
+                updateParticles(particleLinearForce, simulationTimeStep);
+                updateParticles(particleSVKForce, simulationTimeStep);
 
                 //Added by Yuxin for Debug
                 //printParticlePosition(particles, "after update");
@@ -617,19 +683,29 @@ int main(int argc, char* argv[]){
 
                 //*************TODO: boundary and collision checking************//
                 kinematicCollision(particles);
+                kinematicCollision(particleLinearForce);
+                kinematicCollision(particleSVKForce);
             }
 
             //*************TODO: write the particle position and velocity in bgeo file***********//
             // writeBgeoFile(particles, "simulationResult/femsimulation"+std::to_string(frameNum)+".bgeo");
 
 
-            //if(!writePolyFile("simulationResult/femsimulation" + std::to_string(frameNum)+ ".poly", particles, edges)){
-                //std::cout<<"write poly file error!! check the .poly file"<<std::endl;
-            //}
-
-            if(!writeObjFile("simulationResult/femsimulation" + std::to_string(frameNum)+ ".obj", particles, faces)){
-                std::cout<<"write obj file error!! check the .obj file"<<std::endl;
+            if(!writePolyFile("simulationResult/femSimulationCorotated" + std::to_string(frameNum)+ ".poly", particles, edges)){
+                std::cout<<"write poly file error!! check the .poly file"<<std::endl;
             }
+
+            if(!writePolyFile("simulationResult/femSimulationLinear" + std::to_string(frameNum)+ ".poly", particleLinearForce, edges)){
+                std::cout<<"write poly file error!! check the .poly file"<<std::endl;
+            }
+
+            if(!writePolyFile("simulationResult/femSimulationSTK" + std::to_string(frameNum)+ ".poly", particleSVKForce, edges)){
+                std::cout<<"write poly file error!! check the .poly file"<<std::endl;
+            }
+
+            //if(!writeObjFile("simulationResult/femsimulation" + std::to_string(frameNum)+ ".obj", particles, faces)){
+                //std::cout<<"write obj file error!! check the .obj file"<<std::endl;
+            //}
 
             std::cout << "Frame number is " << i*framesPerSecond + j << "!" << std::endl;
 
