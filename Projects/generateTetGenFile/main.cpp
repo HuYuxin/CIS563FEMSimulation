@@ -74,6 +74,49 @@ bool parsePlyFile(std::string fileName, std::vector<Eigen::Vector3d>& particlePo
     return result;
 }
 
+bool parseObjFile(std::string fileName, std::vector<Eigen::Vector3d>& particlePos, std::vector<std::vector<int>>& faceIndex){
+    bool result = false;
+    std::ifstream infile(fileName);
+    std::string line;
+    std::string firstWord;
+
+    if(infile.fail()){
+        infile.close();
+        return result;
+    }
+
+    //read file line by line
+    while(std::getline(infile, line)){
+        std::istringstream iss(line);
+        iss>>firstWord;
+        if(firstWord == "v"){
+            double x = 0.0;
+            iss >> x;
+            double y = 0.0;
+            iss >> y;
+            double z = 0.0;
+            iss >> z;
+            Eigen::Vector3d pos;
+            pos<<x,y,z;
+            particlePos.push_back(pos);
+        }else if(firstWord == "f"){
+            std::string secondWord;
+            std::vector<int> faceVerticeIndice;
+            while(iss >> secondWord){
+                int idx = secondWord.find("/");
+                int faceIdx = stoi(secondWord.substr(0,idx));
+                faceVerticeIndice.push_back(faceIdx);
+            }
+            faceIndex.push_back(faceVerticeIndice);
+        }else{
+            //do nothing skip the line
+        }
+    }
+    infile.close();
+    result = true;
+    return result;
+}
+
 bool writePolyFile(std::string fileName, std::vector<Eigen::Vector3d>& verticePos, std::vector<std::vector<int>>& faces){
     bool result = false;
     std::ofstream myfile;
@@ -89,7 +132,7 @@ bool writePolyFile(std::string fileName, std::vector<Eigen::Vector3d>& verticePo
     myfile<<"\n";
 
     for(unsigned int i=0; i<verticePos.size(); i++){
-        myfile << i
+        myfile << i+1
                <<" "<<verticePos[i](0)
                <<" "<<verticePos[i](1)
                <<" "<<verticePos[i](2)<<"\n";
@@ -117,14 +160,17 @@ bool writePolyFile(std::string fileName, std::vector<Eigen::Vector3d>& verticePo
 int main(int argc, char* argv[]){
     std::vector<Eigen::Vector3d> verticePos;
     std::vector<std::vector<int>> faceVertIndice;
-    if(!parsePlyFile("dragon_vrip_res4.ply",verticePos, faceVertIndice)){
+    /*if(!parsePlyFile("dragon_vrip_res4.ply",verticePos, faceVertIndice)){
         std::cout<<"parse error!"<<std::endl;
+    }*/
+    if(!parseObjFile("werewolfRemesh.obj", verticePos, faceVertIndice)){
+        std::cout<<"parse obj file error!"<<std::endl;
     }
 
     //std::cout<<"number of vertice: "<<verticePos.size()<<std::endl;
     //std::cout<<"number of faces: "<<faceVertIndice.size()<<std::endl;
 
-    if(!writePolyFile("dragon.poly",verticePos,faceVertIndice)){
+    if(!writePolyFile("werewolf.poly",verticePos,faceVertIndice)){
         std::cout<<"write poly file error!"<<std::endl;
     }
 
